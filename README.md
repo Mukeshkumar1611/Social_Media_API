@@ -43,7 +43,7 @@ This API provides basic functionalities for a social media platform, allowing us
     nodemon start
     ```
 
-    The API will be running at http://localhost:3000.
+    The API will be running at http://localhost:8800.
 
 ## Endpoints
 
