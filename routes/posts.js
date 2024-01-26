@@ -2,7 +2,6 @@ const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require('../models/User');
 
-
 // Create a post
 
 router.post("/", async (req, res) => {
@@ -17,7 +16,7 @@ router.post("/", async (req, res) => {
 });
 
 
-// Update a post (Also changes others post)
+// Update a post 
 
 router.put('/:id', async (req, res) => {
     try {
@@ -85,6 +84,9 @@ router.put("/:id/like", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json("Post not found");
+        }
         res.status(200).json(post);
     }
     catch (err) {
@@ -96,8 +98,6 @@ router.get("/:id", async (req, res) => {
 // Get timeline posts
 
 router.get('/timeline/:userId', async (req, res) => {
-
-
     try {
         const currentUser = await User.findById(req.params.userId);
 
@@ -122,19 +122,17 @@ router.get('/timeline/:userId', async (req, res) => {
 });
 
 // Get user's all post
-
 router.get('/profile/:username', async (req, res) => {
-
     try {
         const currentUser = await User.findOne({ username: req.params.username });
 
-        const userPosts = await Post.findOne({ userId: currentUser._id });
+        const userPosts = await Post.findAll(currentUser._id);
 
         res.status(200).json(userPosts);
     } catch (error) {
         console.log(error);
         res.status(500).json("error in getting user posts" + error);
     }
-});
+})
 
 module.exports = router;
