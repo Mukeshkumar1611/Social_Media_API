@@ -10,9 +10,7 @@ const postRoute = require("./routes/posts");
 
 dotenv.config();
 
-app.listen(8800, () => {
-    console.log("Backend Server is running now");
-})
+
 mongoose.connect(process.env.MONGO_URL)
     .then(() => { console.log("Database is connected") })
     .catch((err) => { console.log('Could not connected to mongodb', err)})
@@ -31,3 +29,6 @@ app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 
+app.listen(8800, () => {
+    console.log("Backend Server is running now");
+})
