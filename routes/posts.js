@@ -94,7 +94,6 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-
 // Get timeline posts
 
 router.get('/timeline/:userId', async (req, res) => {
