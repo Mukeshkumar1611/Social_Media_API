@@ -7,26 +7,13 @@ const morgan = require("morgan");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-const cors = require('cors');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL)
     .then(() => { console.log("Database is connected") })
     .catch((err) => { console.log('Could not connected to mongodb', err)})
 
-// MiddleWare
-const corsOptions = {
-    origin: '*',
-    credentials: true, // Enable credentials (cookies, authorization headers, etc.)
-};
-
-
-
-
-app.use('/api', createProxyMiddleware({ target: 'https://lime-concerned-bull.cyclic.app', changeOrigin: true }));
-
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
