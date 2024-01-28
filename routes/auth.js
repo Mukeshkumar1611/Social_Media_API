@@ -17,11 +17,12 @@ router.post("/register", async (req, res) => {
             password: hashedPassword,
         });
 
-        // Save user and return respond
+        // Save user and return respond with status ok
         const user = await newUser.save();
         res.status(200).json(user);
     }
     catch (err) {
+        // Return respond with status internal serval error
         res.status(500).json(err);
     }
 });
