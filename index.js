@@ -8,7 +8,7 @@ const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const cors = require('cors');
-
+const { createProxyMiddleware } = require('http-proxy-middleware');
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL)
@@ -24,6 +24,7 @@ const corsOptions = {
 
 
 
+app.use('/api', createProxyMiddleware({ target: 'https://lime-concerned-bull.cyclic.app', changeOrigin: true }));
 
 app.use(cors(corsOptions));
 app.use(express.json());
