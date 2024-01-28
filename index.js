@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+const cors = require('cors');
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ mongoose.connect(process.env.MONGO_URL)
     .catch((err) => { console.log('Could not connected to mongodb', err)})
 
 // MiddleWare
+app.use(cors());
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
