@@ -2,28 +2,24 @@ const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-// Register new user
-
+// Register
 router.post("/register", async (req, res) => {
     try {
         // Generate new Password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-        // Create new Password
-        const newUser = new User({
+        // Create new user using Sequelize
+        const newUser = await User.create({
             username: req.body.username,
             email: req.body.email,
             password: hashedPassword,
         });
 
-        // Save user and return respond with status ok
-        const user = await newUser.save();
-        res.status(200).json(user);
-    }
-    catch (err) {
-        // Return respond with status internal serval error
-        res.status(500).json(err);
+        // Return response with the created user
+        res.status(200).json(newUser);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 
@@ -32,17 +28,24 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email });
-        !user && res.status(404).json("User not found");
-
+        // Find user by email
+        const user = await User.findOne({ where: { email: req.body.email } });
+        
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json("User not found");
+        }
+        
+        // Check if password is correct
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        !validPassword && res.status(400).json("Wrong Password");
-
+        if (!validPassword) {
+            return res.status(400).json("Wrong password");
+        }
+        
+        // Return user data
         res.status(200).json(user);
-    }
-    catch (err) {
-        res.status(500).json(err);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
-
 module.exports = router;
