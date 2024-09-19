@@ -6,7 +6,7 @@ This API provides basic functionalities for a social media platform, allowing us
 
 - Node.js
 - Express.js
-- MongoDB (using Mongoose)
+- PostgreSQL (using Sequelize)
 - Bcrypt for password encryption
 - Helmet for securing HTTP headers
 - Morgan for HTTP request logging
@@ -32,32 +32,48 @@ This API provides basic functionalities for a social media platform, allowing us
     Create a `.env` file in the root directory and add the following:
 
     ```env
-    MONGO_URI=mongodb://127.0.0.1/Social
+    DB_USER=your-database-username
+    DB_HOST=localhost
+    DB_NAME=your-database-name
+    DB_PASSWORD=your-database-password
+    DB_PORT=your-database-port
+    PORT=7000
     ```
 
-    Replace `mongodb://127.0.0.1/Social` with your MongoDB connection string.
+
+    Replace `your-database-username`, `your-database-name`, and `your-database-password` with your PostgreSQL credentials.
+
 
 4. **Run the application:**
+
 
     ```bash
     nodemon start
     ```
 
-    The API will be running at http://localhost:8800.
+
+    The API will be running at http://localhost:7000.
+
 
 ## Endpoints
 
+
 ### Users
+
 
 #### Register a new user
 
+
 - **Endpoint:**
+
 
     ```http
     POST /api/users/register
     ```
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -67,15 +83,20 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 #### Login
 
+
 - **Endpoint:**
+
 
     ```http
     POST /api/users/login
     ```
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -84,17 +105,23 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 #### Update user information
 
+
 - **Endpoint:**
+
 
     ```http
     PUT /api/users/:id
     ```
 
+
 - **Request parameters:** `id` (User ID)
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -102,37 +129,51 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 #### Delete user account
 
+
 - **Endpoint:**
+
 
     ```http
     DELETE /api/users/:id
     ```
 
+
 - **Request parameters:** `id` (User ID)
+
 
 #### Get user information
 
+
 - **Endpoint:**
+
 
     ```http
     GET /api/users/:id
     ```
 
+
 - **Request parameters:** `id` (User ID)
+
 
 #### Follow a user
 
+
 - **Endpoint:**
+
 
     ```http
     PUT /api/users/:id/follow
     ```
 
+
 - **Request parameters:** `id` (User ID)
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -140,17 +181,23 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 #### Unfollow a user
 
+
 - **Endpoint:**
+
 
     ```http
     PUT /api/users/:id/unfollow
     ```
 
+
 - **Request parameters:** `id` (User ID)
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -158,17 +205,23 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 ### Posts
+
 
 #### Create a new post
 
+
 - **Endpoint:**
+
 
     ```http
     POST /api/posts
     ```
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -178,17 +231,23 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 #### Update a post
 
+
 - **Endpoint:**
+
 
     ```http
     PUT /api/posts/:id
     ```
 
+
 - **Request parameters:** `id` (Post ID)
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -196,27 +255,37 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 #### Delete a post
 
+
 - **Endpoint:**
+
 
     ```http
     DELETE /api/posts/:id
     ```
 
+
 - **Request parameters:** `id` (Post ID)
+
 
 #### Like/Dislike a post
 
+
 - **Endpoint:**
+
 
     ```http
     PUT /api/posts/:id/like
     ```
 
+
 - **Request parameters:** `id` (Post ID)
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -224,25 +293,34 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 #### Get a post
 
+
 - **Endpoint:**
+
 
     ```http
     GET /api/posts/:id
     ```
 
+
 - **Request parameters:** `id` (Post ID)
+
 
 #### Get timeline posts
 
+
 - **Endpoint:**
+
 
     ```http
     GET /api/posts/timeline/all
     ```
 
+
 - **Request body:**
+
 
     ```json
     {
@@ -250,6 +328,8 @@ This API provides basic functionalities for a social media platform, allowing us
     }
     ```
 
+
 ## Contributing
 
-Feel free to contribute to the project by opening issues or creating pull requests. Your feedback and contributions are welcome !
+
+Feel free to contribute to the project by opening issues or creating pull requests. Your feedback and contributions are welcome!
