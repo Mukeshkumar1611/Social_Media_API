@@ -12,6 +12,9 @@ This API provides basic functionalities for a social media platform, allowing us
 - Morgan for HTTP request logging
 - Dotenv for managing environment variables
 
+## Live Links
+- The api service is live on [https://social-media-api-3foh.onrender.com](https://social-media-api-3foh.onrender.com)
+
 ## Setup
 
 1. **Clone the repository:**
